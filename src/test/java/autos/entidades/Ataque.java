@@ -11,3 +11,4 @@ public class Ataque {
     private int costoEnergia; 
     private int danioBase;
 }
+//xd

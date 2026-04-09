@@ -14,4 +14,4 @@ public class Arma {
     Private int bonificadorDanio (int) 
     private peso (float)
 }
-
+//hola tio

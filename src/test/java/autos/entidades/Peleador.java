@@ -15,3 +15,4 @@ public class Peleador {
     private List o Arma[] inventario;
     private List o Ataque[] habilidades;
 }
+//67
