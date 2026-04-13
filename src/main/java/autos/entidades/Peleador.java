@@ -1,6 +1,7 @@
 package autos.entidades;
 
 import jakarta.persistence.*; 
+import java.util.List;
 @Entity
 
 public class Peleador {
@@ -12,7 +13,6 @@ public class Peleador {
     private int energia;
     private float defensaBase; 
     private Arma armaEquipada;
-    private List o Arma[] inventario;
-    private List o Ataque[] habilidades;
+    private List<Arma> inventario;
+    private List<Ataque> habilidades;
 }
-//67
