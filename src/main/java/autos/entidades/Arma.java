@@ -34,4 +34,12 @@ public class Arma {
     public void setPeso(float peso) {
         this.peso = peso;
     }
+    public Arma() {
+    }
+    public Arma(Long id, String nombre, int bonificadorDanio, float peso) {
+        this.id = id;
+        this.nombre = nombre;
+        this.bonificadorDanio = bonificadorDanio;
+        this.peso = peso;
+    }
 }
