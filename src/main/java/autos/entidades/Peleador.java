@@ -19,16 +19,6 @@ public class Peleador {
     public Peleador() {
     }
 
-    public Peleador(String nombre, int puntosVida, int energia, float defensaBase, Arma armaEquipada, List<Arma> inventario, List<Ataque> habilidades) {
-        this.nombre = nombre;
-        this.puntosVida = puntosVida;
-        this.energia = energia;
-        this.defensaBase = defensaBase;
-        this.armaEquipada = armaEquipada;
-        this.inventario = inventario;
-        this.habilidades = habilidades;
-    }
-
     public Peleador(Long id, String nombre, int puntosVida, int energia, float defensaBase, Arma armaEquipada, List<Arma> inventario, List<Ataque> habilidades) {
         this.id = id;
         this.nombre = nombre;
