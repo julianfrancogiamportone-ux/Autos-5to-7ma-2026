@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 public class Ataque {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY);
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre; 
     private int costoEnergia; 
@@ -14,11 +14,6 @@ public class Ataque {
     public Ataque() {
     }
 
-    public Ataque(String nombre, int costoEnergia, int danioBase) {
-        this.nombre = nombre;
-        this.costoEnergia = costoEnergia;
-        this.danioBase = danioBase;
-    }
 
     public Ataque(Long id, String nombre, int costoEnergia, int danioBase) {
         this.id = id;
@@ -26,6 +21,7 @@ public class Ataque {
         this.costoEnergia = costoEnergia;
         this.danioBase = danioBase;
     }
+
 
     public Long getId() {
         return id;
