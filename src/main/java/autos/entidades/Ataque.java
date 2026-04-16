@@ -55,4 +55,3 @@ public class Ataque {
         this.danioBase = danioBase;
     }
 }
-//xd
