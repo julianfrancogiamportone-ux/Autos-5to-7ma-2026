@@ -12,9 +12,6 @@ public class Peleador {
     private int puntosVida; 
     private int energia;
     private float defensaBase; 
-    private Arma armaEquipada;
-    private List<Arma> inventario;
-    private List<Ataque> habilidades;
     @ManyToMany 
     @JoinTable( 
  // Nombre de la tabla intermedia en SQL 
@@ -46,9 +43,6 @@ public class Peleador {
         this.puntosVida = puntosVida;
         this.energia = energia;
         this.defensaBase = defensaBase;
-        this.armaEquipada = armaEquipada;
-        this.inventario = inventario;
-        this.habilidades = habilidades;
     }
 
     public Long getId() {
@@ -91,28 +85,6 @@ public class Peleador {
         this.defensaBase = defensaBase;
     }
 
-    public Arma getArmaEquipada() {
-        return armaEquipada;
-    }
-
-    public void setArmaEquipada(Arma armaEquipada) {
-        this.armaEquipada = armaEquipada;
-    }
-
-    public List<Arma> getInventario() {
-        return inventario;
-    }
-
-    public void setInventario(List<Arma> inventario) {
-        this.inventario = inventario;
-    }
-
-    public List<Ataque> getHabilidades() {
-        return habilidades;
-    }
-
-    public void setHabilidades(List<Ataque> habilidades) {
-        this.habilidades = habilidades;
-    }
+    
 }
 
