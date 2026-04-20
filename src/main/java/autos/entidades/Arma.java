@@ -11,8 +11,8 @@ public class Arma {
     private String nombre; 
     private int bonificadorDanio;
     private float peso;
-     @ManyToMany(mappedBy = "peleadores") 
-    private List<Peleador> peleadores; 
+     @ManyToMany(mappedBy = "inventarioList") 
+    private List<Peleador> peleadoresList; 
 
     public Long getId() {
         return id;
