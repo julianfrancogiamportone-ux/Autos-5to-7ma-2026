@@ -94,3 +94,14 @@ public class Peleador {
         this.habilidades = habilidades;
     }
 }
+
+   @ManyToMany 
+    @JoinTable( 
+ // Nombre de la tabla intermedia en SQL 
+        name = "ataque_tabla", 
+// FK de esta entidad 
+        joinColumns = @JoinColumn(name = "tablapeleador_id"),  
+// FK de la otra entidad 
+        inverseJoinColumns = @JoinColumn(name = "ataque_id")  
+    ) 
+    private List<Ataque> ataquesColaboradores; 

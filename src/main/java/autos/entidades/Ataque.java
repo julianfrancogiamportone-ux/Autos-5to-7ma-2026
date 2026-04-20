@@ -55,3 +55,9 @@ public class Ataque {
         this.danioBase = danioBase;
     }
 }
+
+
+
+@ManyToMany(mappedBy = "estudiantesColaboradores") 
+    private List<Proyecto> proyectos; 
+
