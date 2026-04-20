@@ -24,7 +24,19 @@ public class Peleador {
 // FK de la otra entidad 
         inverseJoinColumns = @JoinColumn(name = "peleador_id")  
     ) 
-    private List<Peleador> peleadores; 
+    private List<Arma> inventarioList; 
+
+    @ManyToMany 
+    @JoinTable( 
+ // Nombre de la tabla intermedia en SQL 
+        name = "ataque_tabla", 
+// FK de esta entidad 
+        joinColumns = @JoinColumn(name = "tablapeleador_id"),  
+// FK de la otra entidad 
+        inverseJoinColumns = @JoinColumn(name = "ataque_id")  
+    ) 
+    private List<Ataque> habilidadesAtaquesList;
+
     public Peleador() {
     }
 
@@ -104,13 +116,3 @@ public class Peleador {
     }
 }
 
-   @ManyToMany 
-    @JoinTable( 
- // Nombre de la tabla intermedia en SQL 
-        name = "ataque_tabla", 
-// FK de esta entidad 
-        joinColumns = @JoinColumn(name = "tablapeleador_id"),  
-// FK de la otra entidad 
-        inverseJoinColumns = @JoinColumn(name = "ataque_id")  
-    ) 
-    private List<Ataque> ataquesColaboradores; 

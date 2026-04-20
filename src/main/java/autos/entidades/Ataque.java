@@ -1,6 +1,7 @@
 package autos.entidades;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.*;
+import java.util.List;
 @Entity
 
 public class Ataque {
@@ -10,6 +11,10 @@ public class Ataque {
     private String nombre; 
     private int costoEnergia; 
     private int danioBase;
+
+    @ManyToMany(mappedBy = "habilidadesAtaques") 
+    private List<Peleador> peleadores2List; 
+
 
     public Ataque() {
     }
@@ -58,6 +63,4 @@ public class Ataque {
 
 
 
-@ManyToMany(mappedBy = "estudiantesColaboradores") 
-    private List<Proyecto> proyectos; 
 
