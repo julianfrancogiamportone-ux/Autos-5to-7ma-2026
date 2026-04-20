@@ -1,6 +1,7 @@
 package autos.entidades;
 
 import jakarta.persistence.*; 
+import java.util.*;
 @Entity
 
 public class Arma {
@@ -10,6 +11,9 @@ public class Arma {
     private String nombre; 
     private int bonificadorDanio;
     private float peso;
+     @ManyToMany(mappedBy = "peleadores") 
+    private List<Peleador> peleadores; 
+
     public Long getId() {
         return id;
     }
