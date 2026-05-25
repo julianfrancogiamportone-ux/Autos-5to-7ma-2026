@@ -1,90 +1,81 @@
 package autos.entidades;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.*;
 import java.util.List;
-@Entity
 
+@Entity
 public class Peleador {
-    @Id 
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private int puntosVida; 
+    private int puntosVida;
     private int energia;
-    private float defensaBase; 
-    @ManyToMany 
-    @JoinTable( 
- // Nombre de la tabla intermedia en SQL 
-        name = "inventario_arma_peleador", 
-// FK de esta entidad 
-        joinColumns = @JoinColumn(name = "arma_id"),  
-// FK de la otra entidad 
-        inverseJoinColumns = @JoinColumn(name = "peleador_id")  
-    ) 
-    private List<Arma> inventarioList; 
+    private float defensaBase;
 
-    @ManyToMany 
-    @JoinTable( 
- // Nombre de la tabla intermedia en SQL 
-        name = "ataque_tabla", 
-// FK de esta entidad 
-        joinColumns = @JoinColumn(name = "tablapeleador_id"),  
-// FK de la otra entidad 
-        inverseJoinColumns = @JoinColumn(name = "ataque_id")  
-    ) 
+    // ── AGREGADO para Ej. 2, 6 y 7 ──────────────────────────────────────────
+    @ManyToOne
+    @JoinColumn(name = "arma_equipada_id")
+    private Arma armaEquipada;
+    // ─────────────────────────────────────────────────────────────────────────
+
+    @ManyToMany
+    @JoinTable(
+        name = "inventario_arma_peleador",
+        joinColumns        = @JoinColumn(name = "arma_id"),
+        inverseJoinColumns = @JoinColumn(name = "peleador_id")
+    )
+    private List<Arma> inventarioList;
+
+    @ManyToMany
+    @JoinTable(
+        name = "ataque_tabla",
+        joinColumns        = @JoinColumn(name = "tablapeleador_id"),
+        inverseJoinColumns = @JoinColumn(name = "ataque_id")
+    )
     private List<Ataque> habilidadesAtaquesList;
 
-    public Peleador() {
+    // ── Constructores ────────────────────────────────────────────────────────
+    public Peleador() {}
+
+    public Peleador(Long id, String nombre, int puntosVida, int energia,
+                    float defensaBase, Arma armaEquipada,
+                    List<Arma> inventario, List<Ataque> habilidades) {
+        this.id                   = id;
+        this.nombre               = nombre;
+        this.puntosVida           = puntosVida;
+        this.energia              = energia;
+        this.defensaBase          = defensaBase;
+        this.armaEquipada         = armaEquipada;   // ahora sí se guarda
+        this.inventarioList       = inventario;
+        this.habilidadesAtaquesList = habilidades;
     }
 
-    public Peleador(Long id, String nombre, int puntosVida, int energia, float defensaBase, Arma armaEquipada, List<Arma> inventario, List<Ataque> habilidades) {
-        this.id = id;
-        this.nombre = nombre;
-        this.puntosVida = puntosVida;
-        this.energia = energia;
-        this.defensaBase = defensaBase;
-    }
+    // ── Getters y Setters ────────────────────────────────────────────────────
+    public Long getId()                          { return id; }
+    public void setId(Long id)                   { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getNombre()                    { return nombre; }
+    public void setNombre(String nombre)         { this.nombre = nombre; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public int getPuntosVida()                   { return puntosVida; }
+    public void setPuntosVida(int puntosVida)    { this.puntosVida = puntosVida; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public int getEnergia()                      { return energia; }
+    public void setEnergia(int energia)          { this.energia = energia; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public float getDefensaBase()                { return defensaBase; }
+    public void setDefensaBase(float defensaBase){ this.defensaBase = defensaBase; }
 
-    public int getPuntosVida() {
-        return puntosVida;
-    }
+    public Arma getArmaEquipada()                { return armaEquipada; }
+    public void setArmaEquipada(Arma armaEquipada){ this.armaEquipada = armaEquipada; }
 
-    public void setPuntosVida(int puntosVida) {
-        this.puntosVida = puntosVida;
-    }
+    public List<Arma> getInventarioList()        { return inventarioList; }
+    public void setInventarioList(List<Arma> inventarioList)
+                                                 { this.inventarioList = inventarioList; }
 
-    public int getEnergia() {
-        return energia;
-    }
-
-    public void setEnergia(int energia) {
-        this.energia = energia;
-    }
-
-    public float getDefensaBase() {
-        return defensaBase;
-    }
-
-    public void setDefensaBase(float defensaBase) {
-        this.defensaBase = defensaBase;
-    }
-
-    
+    public List<Ataque> getHabilidadesAtaquesList()             { return habilidadesAtaquesList; }
+    public void setHabilidadesAtaquesList(List<Ataque> habilidadesAtaquesList)
+                                                                { this.habilidadesAtaquesList = habilidadesAtaquesList; }
 }
-
