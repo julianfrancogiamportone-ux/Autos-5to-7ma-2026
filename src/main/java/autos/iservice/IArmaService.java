@@ -3,6 +3,6 @@ import autos.entidades.Arma;
 import java.util.List;
 
 public interface IArmaService {
-    public List<Arma> findAllCharacters();
-    public Arma saveCharacter(Arma arma);
+    public List<Arma> findAllArmas();
+    public Arma saveArma(Arma arma);
 }
