@@ -18,11 +18,11 @@ public class AtaqueController {
     private AtaqueIService ataqueService;
     @GetMapping
     public List<Ataque> getAllAtaques() {
-    return ataqueService.findAllCharacters();
+    return ataqueService.findAllAtaques();
     }
     @PostMapping
-    public Ataque createCharacter(@RequestBody Ataque ataque) {
-    return ataqueService.saveCharacter(ataque);
+    public Ataque createAtaque(@RequestBody Ataque ataque) {
+    return ataqueService.saveAtaque(ataque);
     }
     }
 

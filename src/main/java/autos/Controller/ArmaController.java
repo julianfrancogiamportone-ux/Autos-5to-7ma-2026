@@ -17,10 +17,10 @@ public class ArmaController {
     private IArmaService armaService;
     @GetMapping
     public List<Arma> getAllArmamentos() {
-    return armaService.findAllCharacters();
+    return armaService.findAllArmas();
     }
     @PostMapping
-    public Arma createCharacter(@RequestBody Arma arma) {
-    return armaService.saveCharacter(arma);
+    public Arma createArma(@RequestBody Arma arma) {
+    return armaService.saveArma(arma);
     }
     }

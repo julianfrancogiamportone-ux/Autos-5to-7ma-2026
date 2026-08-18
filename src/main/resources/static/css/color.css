@@ -1,0 +1,119 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  min-height: 100vh;
+  /* Fondo oscuro neutro y limpio (sin banderas) */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+/* Título con texto blanco y borde negro */
+h1 {
+  font-size: 36px;
+  color: #ffffff;
+  -webkit-text-stroke: 1.5px #000000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 15px;
+}
+
+/* Contenedor principal: Un cuadro a la izquierda y otro a la derecha */
+#fight-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+/* Cuadro/Tarjeta para cada auto en Morado Oscuro */
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(35, 12, 53, 0.95); /* Morado oscuro */
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  width: 260px;
+}
+
+/* Subtítulo (Nombre del auto) con texto blanco y borde negro */
+.player h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #ffffff;
+  -webkit-text-stroke: 1px #000000;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  font-size: 24px;
+}
+
+select {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  background-color: #222;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+}
+
+button {
+  margin-top: 30px;
+  padding: 15px 35px;
+  font-size: 22px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff4747;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #ff1a1a;
+}
+
+.fighter-img {
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  margin-bottom: 15px;
+  background-color: rgba(255,255,255,0.1);
+}
+
+#result {
+  margin-top: 30px;
+  font-size: 26px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 15px 40px;
+  border-radius: 10px;
+  display: inline-block;
+  border: 2px solid #ff4747;
+  color: #ffffff;
+  -webkit-text-stroke: 1px #000000;
+  text-shadow: 1px 1px 2px #000;
+  animation: punch 1s infinite alternate;
+}
+
+@keyframes punch {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+.hidden {
+  display: none;
+}

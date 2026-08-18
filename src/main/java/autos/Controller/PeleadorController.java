@@ -12,9 +12,12 @@ import autos.iservice.PeleadorIService;
 @RestController 
 @RequestMapping("/api/peleadores") 
 public class PeleadorController { 
- 
-    @Autowired 
-    private PeleadorIService pService; 
+    @Autowired
+    private final PeleadorIService pService;
+
+    PeleadorController(PeleadorIService pService) {
+        this.pService = pService;
+    } 
  
     @GetMapping 
     public List<Peleador> getAllPeleadores() { 
