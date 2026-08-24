@@ -1,4 +1,12 @@
-const API_URL = 'http://localhost:8080/api/peleadores';
+const API_AUTOS = 'http://localhost:8080/api/peleadores';
+const API_ARTISTAS = 'http://localhost:8081/api/characters';
+
+// Servidores base donde están alojadas las imágenes
+const HOST_AUTOS = 'http://localhost:8080';
+const HOST_ARTISTAS = 'http://localhost:8081';
+
+// Imagen por defecto en línea por si no existe el archivo local
+const PLACEHOLDER_IMG = 'https://via.placeholder.com/150?text=Sin+Imagen';
 
 const fighter1Select = document.getElementById('fighter1');
 const fighter2Select = document.getElementById('fighter2');
@@ -7,20 +15,65 @@ const fighter2Image = document.getElementById('fighter2Image');
 const fightButton = document.getElementById('fightButton');
 const resultDiv = document.getElementById('result');
 
-let autos = [];
+let competidoresGlobales = [];
+
+// Función auxiliar para construir la URL correcta de la imagen
+function resolverUrlImagen(urlOriginal, hostBase) {
+    if (!urlOriginal) return PLACEHOLDER_IMG;
+    if (urlOriginal.startsWith('http://') || urlOriginal.startsWith('https://')) {
+        return urlOriginal;
+    }
+    // Si la ruta es relativa (ej: "images/khea.jpg" o "/drake.webp"), le pegamos el servidor base
+    const rutaLimpia = urlOriginal.startsWith('/') ? urlOriginal : '/' + urlOriginal;
+    return hostBase + rutaLimpia;
+}
 
 async function fetchData() {
+    let autos = [];
+    let artistas = [];
+
+    // 1. Cargar Autos
     try {
-        const response = await fetch(API_URL);
-        autos = await response.json();
+        const responseAutos = await fetch(API_AUTOS);
+        const crudosAutos = await responseAutos.json();
+        autos = crudosAutos.map(auto => ({
+            ...auto,
+            imagen: resolverUrlImagen(auto.imagen, HOST_AUTOS)
+        }));
     } catch (error) {
-        console.error('Error al cargar los autos:', error);
+        console.error('Error al cargar autos:', error);
     }
+
+    // 2. Cargar Artistas
+    try {
+        const responseArtistas = await fetch(API_ARTISTAS);
+        const crudosArtistas = await responseArtistas.json();
+        
+        artistas = crudosArtistas.map(artista => {
+            const poderArtista = artista.puntosVida + (artista.defensaBase * 10) + artista.energia;
+            const imgRaw = artista.url_imagen || artista.url_Imagen;
+            
+            return {
+                id: artista.id + 10000,
+                nombre: artista.nombre,
+                marca: 'Artista',
+                imagen: resolverUrlImagen(imgRaw, HOST_ARTISTAS),
+                nivelDePoder: poderArtista
+            };
+        });
+    } catch (error) {
+        console.error('Error al cargar artistas:', error);
+    }
+
+    competidoresGlobales = [...autos, ...artistas];
     loadFighters();
 }
 
 function loadFighters() {
-    [...autos].forEach(fighter => {
+    fighter1Select.innerHTML = '';
+    fighter2Select.innerHTML = '';
+
+    competidoresGlobales.forEach(fighter => {
         const option1 = document.createElement('option');
         option1.value = JSON.stringify(fighter);
         option1.text = `${fighter.nombre} (${fighter.marca || fighter.modelo || ''})`;
@@ -32,50 +85,48 @@ function loadFighters() {
         fighter2Select.appendChild(option2);
     });
 
-    if (autos.length > 0) {
-        const selected1 = JSON.parse(fighter1Select.value);
-        fighter1Image.src = selected1.imagen || 'placeholder1.png';
-
-        const selected2 = JSON.parse(fighter2Select.value);
-        fighter2Image.src = selected2.imagen || 'placeholder2.png';
+    if (competidoresGlobales.length > 0) {
+        actualizarImagen(fighter1Select, fighter1Image);
+        actualizarImagen(fighter2Select, fighter2Image);
     }
 }
 
-// Actualizar la imagen al seleccionar un auto diferente
-fighter1Select.addEventListener('change', () => {
-    const selected = JSON.parse(fighter1Select.value);
-    fighter1Image.src = selected.imagen || 'placeholder1.png';
-});
+function actualizarImagen(selectElement, imageElement) {
+    if (!selectElement.value) return;
+    const selected = JSON.parse(selectElement.value);
+    imageElement.src = selected.imagen || PLACEHOLDER_IMG;
+    
+    // Evita romper la UI si la imagen tampoco existe en el servidor backend
+    imageElement.onerror = () => {
+        imageElement.src = PLACEHOLDER_IMG;
+    };
+}
 
-fighter2Select.addEventListener('change', () => {
-    const selected = JSON.parse(fighter2Select.value);
-    fighter2Image.src = selected.imagen || 'placeholder2.png';
-});
+fighter1Select.addEventListener('change', () => actualizarImagen(fighter1Select, fighter1Image));
+fighter2Select.addEventListener('change', () => actualizarImagen(fighter2Select, fighter2Image));
 
-// Lógica para realizar la pelea
 fightButton.addEventListener('click', () => {
-    const fighter1 = JSON.parse(fighter1Select.value);
-    const fighter2 = JSON.parse(fighter2Select.value);
-
-    if (!fighter1 || !fighter2) {
+    if (!fighter1Select.value || !fighter2Select.value) {
         alert('Seleccioná ambos competidores.');
         return;
     }
 
-    // Calcular o simular fuerza / potencia
+    const fighter1 = JSON.parse(fighter1Select.value);
+    const fighter2 = JSON.parse(fighter2Select.value);
+
     const power1 = fighter1.nivelDePoder || fighter1.puntosVida || (Math.floor(Math.random() * 1000) + 500);
     const power2 = fighter2.nivelDePoder || fighter2.puntosVida || (Math.floor(Math.random() * 1000) + 500);
 
-    let winner;
+    let winnerText;
     if (power1 > power2) {
-        winner = fighter1.nombre;
+        winnerText = `🏆 ¡El ganador es ${fighter1.nombre} con ${power1} pts! 💥`;
     } else if (power2 > power1) {
-        winner = fighter2.nombre;
+        winnerText = `🏆 ¡El ganador es ${fighter2.nombre} con ${power2} pts! 💥`;
     } else {
-        winner = "¡Empate!";
+        winnerText = "🤝 ¡Empate!";
     }
 
-    resultDiv.textContent = `🏆 El ganador es: ${winner}! 🏎️`;
+    resultDiv.textContent = winnerText;
     resultDiv.classList.remove('hidden');
 });
 
